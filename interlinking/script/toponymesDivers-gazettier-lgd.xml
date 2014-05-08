@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE LIMES SYSTEM "limes.dtd">
+<LIMES>
+	<PREFIX>
+		<NAMESPACE>http://geovocab.org/geometry#</NAMESPACE>
+		<LABEL>geom</LABEL>
+	</PREFIX>
+	
+	<PREFIX>
+		<NAMESPACE>http://data.ign.fr/def/geometrie#</NAMESPACE>
+		<LABEL>geoign</LABEL>
+	</PREFIX>
+	<PREFIX>
+		<NAMESPACE>http://www.opengis.net/ont/geosparql#</NAMESPACE>
+		<LABEL>geos</LABEL>
+	</PREFIX>
+	<PREFIX>
+		<NAMESPACE>http://data.ign.fr/def/topo#</NAMESPACE>
+		<LABEL>topo</LABEL>
+	</PREFIX>
+	
+	<PREFIX>
+		<NAMESPACE>http://linkedgeodata.org/ontology/</NAMESPACE>
+		<LABEL>lgdo</LABEL>
+	</PREFIX>
+	<SOURCE>
+		<ID>toponymes-gazettier-ign</ID>
+		<ENDPOINT>C:\LIMES\Mappings\datasets\toponymesDivers-ign.ttl</ENDPOINT>
+		<VAR>?x</VAR>
+		<PAGESIZE>2000</PAGESIZE>
+		<RESTRICTION>?x a topo:EntiteTopographique</RESTRICTION>
+		<PROPERTY>geoign:geometry/geos:asWKT RENAME polygon</PROPERTY>
+		<TYPE>TURTLE</TYPE>
+	</SOURCE>
+	<TARGET>
+		<ID>linkedgeodata</ID>
+		<ENDPOINT>http://linkedgeodata.org/sparql</ENDPOINT>
+		<VAR>?y</VAR>
+		<PAGESIZE>5000</PAGESIZE>
+		<RESTRICTION>?y a lgdo:Amenity</RESTRICTION>
+		<PROPERTY>geom:geometry/geos:asWKT RENAME polygon</PROPERTY>
+	</TARGET>
+	<METRIC>hausdorff(x.polygon, y.polygon)</METRIC>
+	<ACCEPTANCE>
+		<THRESHOLD>0.9</THRESHOLD>
+		<FILE>toponymGazettier_lgd_verynear.nt</FILE>
+		<RELATION>gn:nearby</RELATION>
+	</ACCEPTANCE>
+	<REVIEW>
+		<THRESHOLD>0.5</THRESHOLD>
+		<FILE>toponymGazettier_lgd__near.nt</FILE>
+		<RELATION>gn:nearby</RELATION>
+	</REVIEW>
+	<EXECUTION>Simple</EXECUTION>
+	<OUTPUT>N3</OUTPUT>
+</LIMES>
