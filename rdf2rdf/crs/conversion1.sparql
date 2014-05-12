@@ -1,0 +1,56 @@
+prefix gmx: <http://www.isotc211.org/2005/gmx#>
+prefix gml: <http://www.opengis.net/gml#>
+prefix ignf: <http://data.ign.fr/def/ignf#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT 
+{    											
+	?uri a ignf:Conversion;
+	rdfs:label ?namefrC;
+	ignf:scope ?scopefr;
+	ignf:epsgID ?valepsg;
+	ignf:usesMethod ?uriMthd;
+	gml:usesValue ?val.
+
+	?val gml:ParameterValue ?prmtv.
+	?prmtv gml:value ?prmtv2.
+	?prmtv gml:valueOfParameter ?voprmt.
+	?prmtv2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?prmtv3.
+	?prmtv2 gml:uom ?uom.
+	?voprmt <http://www.w3.org/1999/xlink#href> ?vop. 
+	
+	
+  }
+  
+FROM <http://data.ign.fr/id/ignf>
+WHERE 
+ 
+{
+   ?c gml:Conversion ?conv.
+   {
+      SELECT DISTINCT ?nameC 
+      WHERE {?conv gml:name ?nameC. }}
+   {
+ 
+    ?conv gml:id ?id; gml:scope ?scope ; gml:usesMethod ?m; gml:usesValue ?val.
+    OPTIONAL{?conv gml:name [ gml:codeSpace ?vn; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg].}
+	?m <http://www.w3.org/1999/xlink#href> ?mthd.
+	
+	?val gml:ParameterValue ?prmtv.
+	?prmtv gml:value ?prmtv2.
+	?prmtv gml:valueOfParameter ?voprmt.
+	?prmtv2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?prmtv3.
+	?prmtv2 gml:uom ?uom.
+	?voprmt <http://www.w3.org/1999/xlink#href> ?vop.
+	
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/conversion/",(str(?id)))) AS ?uri).
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/method/",(STRAFTER(STR(?mthd),"#")))) AS ?uriMthd).
+	bind (strlang(?scope, 'fr') AS ?scopefr).
+	
+
+   }
+      bind (strlang(?nameC, 'fr') AS ?namefrC).
+
+}  

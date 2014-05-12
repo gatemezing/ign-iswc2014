@@ -1,0 +1,110 @@
+PREFIX gml: <http://www.opengis.net/gml#>
+PREFIX ignf: <http://data.ign.fr/def/ignf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT {
+	?uriGD a ignf:GeodeticDatum;
+	?p ?o.
+
+	?uriVD a ignf:VerticalDatum;
+	?p2 ?o2.
+	
+	?uriECS a ignf:EllipsoidalCS;
+	?p3 ?o3.
+	
+	?uriCCS a ignf:CartesianCS;
+	?p4 ?o4.
+	
+	?uriVCS a ignf:VerticalCS;
+	?p5 ?o5.
+	
+	?uriPM a ignf:PrimeMeridian;
+	rdfs:label ?nom6;
+	ignf:epsgID ?epsg6;
+	gml:greenwichLongitude [a qudt:QuantityValue; qudt:value ?longval6; gml:uom ?longuom6].
+
+	?uriAX a ignf:CoordinateSystemAxis;
+	?p7 ?o7.
+	
+	?uriEL1 a ignf:Ellipsoid;
+	rdfs:label ?nom8;
+	ignf:epsgID ?epsg8;
+	ignf:semiMajorAxis [a qudt:QuantityValue; qudt:value ?smajval8; gml:uom ?smajuom8];
+	ignf:inverseFlattening [a qudt:QuantityValue; qudt:value ?invflatval8; gml:uom ?invflatuom8].
+	
+	?uriEL2 a ignf:Ellipsoid;
+	rdfs:label ?nom9;
+	ignf:epsgID ?epsg9;
+	ignf:semiMajorAxis [a qudt:QuantityValue; qudt:value ?smajval9; gml:uom ?smajuom9];
+	ignf:semiMinorAxis [a qudt:QuantityValue; qudt:value ?sminval9; gml:uom ?sminuom9].
+}
+
+FROM <http://data.ign.fr/id/ignf-obj-geo-1>
+
+WHERE {
+   
+   {
+   	?uriGD a ignf:GeodeticDatum;
+	?p ?o.}
+   UNION
+   {
+   	?uriVD a ignf:VerticalDatum;
+	?p2 ?o2.}
+   UNION
+      {
+	?uriECS a ignf:EllipsoidalCS;
+	?p3 ?o3.}
+   UNION
+      {
+	?uriCCS a ignf:CartesianCS;
+	?p4 ?o4.}
+   UNION
+      {
+	?uriVCS a ignf:VerticalCS;
+	?p5 ?o5.}
+   UNION
+      {
+	?uriPM a ignf:PrimeMeridian;
+	rdfs:label ?nom6.
+	OPTIONAL{?uriPM ignf:epsgID ?epsg6}.
+	?uriPM gml:greenwichLongitude ?long6.
+	?long6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?longval6.
+	?long6 <http://www.opengis.net/gml#uom> ?longuom6.}
+   UNION
+      {
+	?uriAX a ignf:CoordinateSystemAxis;
+	?p7 ?o7.}
+   UNION
+      {
+	?uriEL1 a ignf:Ellipsoid;
+	rdfs:label ?nom8.
+	OPTIONAL{?uriEL1 ignf:epsgID ?epsg8}.
+	?uriEL1 gml:semiMajorAxis ?smaj8.
+	?smaj8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?smajval8.
+	?smaj8 gml:uom ?smajuom8.
+	?uriEL1 gml:secondDefiningParameter ?param8.
+	?param8 gml:SecondDefiningParameter ?param28.
+	?param28 gml:inverseFlattening ?invflat8.
+			?invflat8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?invflatval8.
+			?invflat8 gml:uom ?invflatuom8.
+	}
+   UNION
+      {
+	?uriEL2 a ignf:Ellipsoid;
+	rdfs:label ?nom9.
+	OPTIONAL{?uriEL2 ignf:epsgID ?epsg9}.
+	?uriEL2 gml:semiMajorAxis ?smaj9.
+	?smaj9 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?smajval9.
+	?smaj9 gml:uom ?smajuom9.
+	?uriEL2 gml:secondDefiningParameter ?param9.
+	?param9 gml:SecondDefiningParameter ?param29.
+	?param29 gml:semiMinorAxis ?smin9.
+			?smin9 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?sminval9.
+			?smin9 gml:uom ?sminuom9.}
+
+} 
+
+
+

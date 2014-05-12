@@ -1,0 +1,243 @@
+PREFIX geofla: <http://data.ign.fr/def/geofla#>
+PREFIX geom: <http://data.ign.fr/def/geometrie#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gspql: <http://www.opengis.net/ont/geosparql#>
+
+CONSTRUCT {  
+ ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?statut.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?x owl:sameAs ?valInsee.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr
+
+}
+
+ FROM <http://data.ign.fr/id/geofla/commune-rdf-1-rdf-1>
+ 
+WHERE {{
+ ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr.
+  BIND (IRI("http://data.ign.fr/id/codes/geofla/typedecommune/ChefLieuDeCanton") AS ?statut).
+  BIND (IRI(CONCAT("http://id.insee.fr/geo/commune/",?val2)) AS ?valInsee).
+  FILTER  (contains(?val17, "canton") )
+ }
+ UNION
+ {
+  ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr.
+ BIND (IRI("http://data.ign.fr/id/codes/geofla/typedecommune/CapitaleDEtat") AS ?statut).
+ BIND (IRI(CONCAT("http://id.insee.fr/geo/commune/",?val2)) AS ?valInsee).
+ FILTER  (contains(?val17, "Capitale") )
+ }
+ UNION
+ {
+ ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr.
+ BIND (IRI("http://data.ign.fr/id/codes/geofla/typedecommune/CommuneSimple") AS ?statut).
+  BIND (IRI(CONCAT("http://id.insee.fr/geo/commune/",?val2)) AS ?valInsee).
+ FILTER  (contains(?val17, "simple") )
+ }
+  UNION
+ {
+   ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr.
+ BIND (IRI("http://data.ign.fr/id/codes/geofla/typedecommune/PrefectureDeDepartement") AS ?statut).
+  BIND (IRI(CONCAT("http://id.insee.fr/geo/commune/",?val2)) AS ?valInsee).
+ FILTER regex(?val17, "Pr.*ecture$") 
+
+ }
+ UNION{
+  ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr.
+  BIND (IRI("http://data.ign.fr/id/codes/geofla/typedecommune/PrefectureDeRegion") AS ?statut).
+  BIND (IRI(CONCAT("http://id.insee.fr/geo/commune/",?val2)) AS ?valInsee).
+  FILTER  (contains(?val17, "ion") )
+ }
+   UNION{
+     ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr.
+  BIND (IRI("http://data.ign.fr/id/codes/geofla/typedecommune/SousPrefecture") AS ?statut).
+  BIND (IRI(CONCAT("http://id.insee.fr/geo/commune/",?val2)) AS ?valInsee).
+  FILTER  (contains(?val17, "Sous") )
+ }
+ }

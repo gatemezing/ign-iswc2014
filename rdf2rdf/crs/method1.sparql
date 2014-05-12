@@ -1,0 +1,41 @@
+prefix gmx: <http://www.isotc211.org/2005/gmx#>
+prefix gml: <http://www.opengis.net/gml#>
+prefix ignf: <http://data.ign.fr/def/ignf#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT 
+{    											
+	
+	?uriO a ignf:OperationMethod;
+	rdfs:label ?namefrO;
+	ignf:epsgID ?valepsgO;
+	ignf:sourceDimension ?sd;
+	ignf:targetDimension ?td;
+	ignf:methodFormula ?formfr;
+	ignf:usesParameter ?pName.
+  }
+  
+FROM <http://data.ign.fr/id/ignf>
+WHERE 
+ 
+{
+   ?op gml:OperationMethod ?opMthd.
+   {
+      SELECT DISTINCT ?nameO 
+      WHERE {?opMthd gml:name ?nameO}}
+	
+   {
+	?opMthd gml:id ?idO; gml:methodFormula ?form; gml:sourceDimensions ?sDim; gml:targetDimensions ?tDim;
+	gml:usesParameter ?pO. ?pO <http://www.w3.org/1999/xlink#href> ?pName.
+    OPTIONAL{?opMthd gml:name [ gml:codeSpace ?vnO; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsgO].}
+	
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/method/",(str(?idO)))) AS ?uriO).
+	bind (strlang(?form, 'fr') AS ?formfr).
+	bind (strdt(?sDim, xsd:integer) as ?sd).
+	bind (strdt(?tDim, xsd:integer) as ?td).
+   }
+
+      bind (strlang(?nameO, 'fr') AS ?namefrO).
+}  

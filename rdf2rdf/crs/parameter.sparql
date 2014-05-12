@@ -1,0 +1,28 @@
+prefix gmx: <http://www.isotc211.org/2005/gmx#>
+prefix gml: <http://www.opengis.net/gml#>
+prefix ignf: <http://data.ign.fr/def/ignf#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT 
+{    											
+	
+	?uri a ignf:OperationParameter;
+	rdfs:label ?namefr;
+	ignf:epsgID ?valepsg;
+	rdfs:comment ?com.
+  }
+  
+FROM <http://data.ign.fr/id/ignf>
+WHERE 
+ 
+{
+   ?op gml:OperationParameter ?opParam.
+   ?opParam gml:id ?id; gml:name ?name; gml:description ?desc.
+    OPTIONAL{?opParam gml:name [ gml:codeSpace ?vnO; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg]}
+	
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/parameter/",(str(?id)))) AS ?uri).
+	bind (strlang(?name, 'fr') AS ?namefr).  
+	bind (strlang(?desc, 'en') AS ?com).
+   } 

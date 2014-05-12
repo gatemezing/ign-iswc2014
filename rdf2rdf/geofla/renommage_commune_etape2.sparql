@@ -1,0 +1,74 @@
+PREFIX geofla: <http://data.ign.fr/def/geofla#>
+PREFIX geom: <http://data.ign.fr/def/geometrie#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gspql: <http://www.opengis.net/ont/geosparql#>
+
+CONSTRUCT {  
+ ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?statut.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?crsPoint1.
+ ?z gspql:asWKT ?wktChf.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?crsPoint2.
+ ?z gspql:asWKT ?wktCtr
+}
+
+ FROM <http://data.ign.fr/id/geofla/commune-rdf-1>
+ 
+WHERE {
+ ?x a geofla:Commune.
+ ?x geofla:codeComm ?val1.
+ ?x geofla:numInsee ?val2.
+ ?x rdfs:label ?toponyme.
+ ?x geom:geometry ?w.
+ ?x geofla:statut ?val17.
+ ?x geofla:statut ?statut.
+ ?x geofla:zMoyen ?zMoy.
+ ?x geofla:superficieHa ?supHa.
+ ?x geofla:population ?pop.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.
+ ?x geofla:cant ?cant.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?crsPol.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?val7.
+ ?y geom:coordY ?val8.
+ ?y geom:crs ?crsPoint1.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?val12.
+ ?z geom:coordY ?val13.
+ ?z geom:crs ?crsPoint2.
+  BIND (STRDT ( STR (?val7), xsd:double) AS ?valXCHF).
+  BIND (STRDT ( STR (?val8), xsd:double) AS ?valYCHF).
+  BIND (STRDT ( STR (?val12), xsd:double) AS ?valXCTR).
+  BIND (STRDT ( STR (?val13), xsd:double) AS ?valYCTR).
+  BIND (STRDT (CONCAT( "<http://data.ign.fr/id/ignf/crs/RGF93LAMB93> POINT(",STR (?val7)," ",STR (?val8),")"), gspql:wktLiteral) AS ?wktChf).
+  BIND (STRDT (CONCAT( "<http://data.ign.fr/id/ignf/crs/RGF93LAMB93> POINT(",STR (?val12)," ",STR (?val13),")"), gspql:wktLiteral) AS ?wktCtr)
+ 
+ }

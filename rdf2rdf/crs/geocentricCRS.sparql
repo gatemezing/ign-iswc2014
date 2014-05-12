@@ -1,0 +1,57 @@
+prefix gmx: <http://www.isotc211.org/2005/gmx#>
+prefix gml: <http://www.opengis.net/gml#>
+prefix ignf: <http://data.ign.fr/def/ignf#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+prefix gmd: <http://www.isotc211.org/2005/gmd#>
+prefix gco: <http://www.isotc211.org/2005/gco#>
+
+CONSTRUCT 
+{ ?ncrsTypeUrig a ignf:GeodeticCRS ; 
+  rdfs:label ?gnamefr; ignf:epsgID ?valepsg; ignf:scope ?scopefr; ignf:domainOfValidity ?uriExt.
+   ?uriExt a ignf:Extent ; rdfs:label ?ldescfr; ignf:geographicElement ?uriBB. ?uriBB a ignf:GeographicBoundingBox;
+                                            ignf:eastBoundLongitude ?vebld; 
+                                            ignf:westBoundLongitude ?vwbld ; 
+                                            ignf:southBoundLatitude ?vsbld ; 
+											ignf:northBoundLatitude ?vnbld .
+	?ncrsTypeUrig ignf:geodeticDatum ?uriGD; ignf:cartesianCS ?uriCCS.
+   
+  }
+FROM <http://data.ign.fr/id/ignf>
+WHERE 
+
+{
+ ?s gmx:crs ?crs. 
+   ?crs gml:GeocentricCRS ?crsTypeUrig.
+   ?crsTypeUrig gml:id ?idg ; gml:name ?gname ; gml:scope ?scope ; gml:domainOfValidity ?gdomainURI.
+      ?gdomainURI gmd:EX_Extent ?g . ?g gmd:geographicElement ?v. ?g gmd:description ?dURI. ?dURI gco:CharacterString ?ldesc.
+	  ?v gmd:EX_GeographicBoundingBox ?bbox. 
+   ?bbox gmd:eastBoundLongitude ?ebl; gmd:westBoundLongitude ?wbl ; gmd:southBoundLatitude ?sbl ; gmd:northBoundLatitude ?nbl .
+   ?ebl gco:Decimal ?vebl. ?wbl gco:Decimal ?vwbl . ?sbl gco:Decimal ?vsbl . ?nbl gco:Decimal ?vnbl .
+	OPTIONAL{?crsTypeUrig gml:name [ gml:codeSpace ?val8; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg]}.
+	?crsTypeUrig gml:usesGeodeticDatum ?ugd.
+				?ugd <http://www.w3.org/1999/xlink#href> ?valdatum.
+	?crsTypeUrig gml:usesCartesianCS ?uccs.
+				?uccs <http://www.w3.org/1999/xlink#href> ?valccs.
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/extent/",(str(?idg)))) AS ?uriExt).
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/geobbox/",(str(?idg)))) AS ?uriBB).			
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/geodeticdatum/",STRAFTER(STR(?valdatum),"#"))) AS ?uriGD).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/cartesiancs/",STRAFTER(STR(?valccs),"#"))) AS ?uriCCS).
+    FILTER ( !regex(?gname, "^http://registre.ign.fr/ign/IGNF/crs/IGNF/") ) 
+
+  
+  
+   bind (uri (concat("http://data.ign.fr/id/ignf/crs/", (str(?idg))) ) AS ?ncrsTypeUrig)
+
+   bind (strlang(?gname, 'fr') AS ?gnamefr)
+
+   
+   bind (strlang(?scope, 'fr') AS ?scopefr)
+   bind (strlang(?ldesc, 'fr') AS ?ldescfr)
+   bind (strdt(?vebl, xsd:double) as ?vebld)
+   bind (strdt(?vwbl, xsd:double) as ?vwbld)
+   bind (strdt(?vsbl, xsd:double) as ?vsbld)
+   bind (strdt(?vnbl, xsd:double) as ?vnbld)
+   
+}  
+
+

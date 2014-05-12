@@ -1,0 +1,39 @@
+prefix gmx: <http://www.isotc211.org/2005/gmx#>
+prefix gml: <http://www.opengis.net/gml#>
+prefix ignf: <http://data.ign.fr/def/ignf#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT 
+{    											
+	?uriO a ignf:OperationMethod;
+	rdfs:label ?namefrO;
+	ignf:epsgID ?valepsgO;
+	ignf:sourceDimension ?sd;
+	ignf:targetDimension ?td;
+	ignf:methodFormula ?formfr;
+	ignf:usesParameter ?uriParam.
+  }
+  
+FROM <http://data.ign.fr/id/ignf-method1>
+WHERE 
+ 
+{
+	?uriO a ignf:OperationMethod;
+   {
+      SELECT DISTINCT ?pName 
+      WHERE {?uriO ignf:usesParameter ?pName.}}
+	
+   {
+	?uriO rdfs:label ?namefrO;
+	OPTIONAL{?uriO ignf:epsgID ?valepsgO}.
+	?uriO ignf:sourceDimension ?sd;
+	ignf:targetDimension ?td;
+	ignf:methodFormula ?formfr;}
+	
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/parameter/",STRAFTER(STR(?pName),"#"))) AS ?uriParam).
+	
+   }
+
+

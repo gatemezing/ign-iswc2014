@@ -1,0 +1,201 @@
+PREFIX gml: <http://www.opengis.net/gml#>
+PREFIX ignf: <http://data.ign.fr/def/ignf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT {
+	?uriGD a ignf:GeodeticDatum;
+	rdfs:label ?nom;
+	ignf:epsgID ?epsg;
+	ignf:scope ?scopeE;
+	ignf:primeMeridian ?uriPM1;
+	ignf:ellipsoid ?uriEL1.
+
+	?uriVD a ignf:VerticalDatum;
+	rdfs:label ?nom2;
+	ignf:epsgID ?epsg2;
+	ignf:scope ?scopeE2.
+	
+	?uriECS a ignf:EllipsoidalCS;
+	rdfs:label ?nom3;
+	ignf:epsgID ?epsg3;
+	ignf:axis ?uriAX3.
+	
+	?uriCCS a ignf:CartesianCS;
+	rdfs:label ?nom4;
+	ignf:epsgID ?epsg4;
+	ignf:axis ?uriAX4.
+	
+	?uriVCS a ignf:VerticalCS;
+	rdfs:label ?nom5;
+	ignf:epsgID ?epsg5;
+	ignf:axis ?uriAX5.
+	
+	?uriPM a ignf:PrimeMeridian;
+	rdfs:label ?nom6;
+	ignf:epsgID ?epsg6;
+	gml:greenwichLongitude ?long6.
+	?long6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?longval6.
+	?long6 <http://www.opengis.net/gml#uom> ?longuom6.
+	
+	?uriAX a ignf:CoordinateSystemAxis;
+	rdfs:label ?nom7;
+	ignf:epsgID ?epsg7;
+	ignf:axisAbbrev ?axab7;
+	ignf:axisDirection ?axdirlit7;
+	gml:uom ?uomax7.
+
+	
+	?uriEL a ignf:Ellipsoid;
+	rdfs:label ?nom8;
+	ignf:epsgID ?epsg8;
+	gml:semiMajorAxis ?smaj8.
+	?smaj8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?smajval8.
+	?smaj8 gml:uom ?smajuom8.
+	?uriEL gml:secondDefiningParameter ?param8.
+	?param8 gml:SecondDefiningParameter ?param28.
+	?param28 gml:inverseFlattening ?invflat8.
+			?invflat8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?invflatval8.
+			?invflat8 gml:uom ?invflatuom8.
+	?param28 gml:semiMinorAxis ?smin8.
+			?smin8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?sminval8.
+			?smin8 gml:uom ?sminuom8.
+
+}
+
+FROM <http://data.ign.fr/id/ignf>
+
+WHERE {
+   
+   {
+   ?s ?p ?x.
+   ?s gml:identifier ?o.
+   ?s gml:id ?id.
+   ?s gml:usesPrimeMeridian ?pm.
+   ?pm <http://www.w3.org/1999/xlink#href> ?pmid.
+   ?s gml:usesEllipsoid ?el.
+   ?el <http://www.w3.org/1999/xlink#href> ?elid.
+   ?s gml:name ?name.
+   OPTIONAL{?s gml:name [ gml:codeSpace ?val; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg]}.
+   ?s gml:scope ?scope.
+    BIND ((strlang(?name, "fr")) AS ?nom).
+	BIND ((strlang(?scope, "en")) AS ?scopeE).
+	BIND ((STR(?valepsg)) AS ?epsg).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/geodeticdatum/",STR(?id))) AS ?uriGD).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/primemeridian/",STRAFTER(STR(?pmid),"#"))) AS ?uriPM1).
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/ellipsoid/",STRAFTER(STR(?elid),"#"))) AS ?uriEL1).
+    FILTER regex(str(?o), ".*GeodeticDatum.*")}
+   UNION
+   {
+   ?s2 ?p2 ?x2.
+   ?s2 gml:identifier ?o2.
+   ?s2 gml:id ?id2.
+   ?s2 gml:name ?name2.
+   OPTIONAL{?s2 gml:name [ gml:codeSpace ?val2; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg2]}.
+   ?s2 gml:scope ?scope2.
+    BIND ((strlang(?name2, "fr")) AS ?nom2).
+	BIND ((strlang(?scope2, "en")) AS ?scopeE2).
+	BIND ((STR(?valepsg2)) AS ?epsg2).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/verticaldatum/",STR(?id2))) AS ?uriVD).
+      FILTER regex(str(?o2), ".*VerticalDatum.*")}
+   UNION
+      {
+	?s3 ?p3 ?x3.
+    ?s3 gml:identifier ?o3.
+	?s3 gml:id ?id3.
+	?s3 gml:name ?name3.
+	OPTIONAL{?s3 gml:name [ gml:codeSpace ?val3; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg3]}.
+	?s3 gml:usesAxis ?ax3.
+	?ax3 <http://www.w3.org/1999/xlink#href> ?axid3.
+    BIND ((strlang(?name3, "fr")) AS ?nom3).
+	BIND ((STR(?valepsg3)) AS ?epsg3).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/ellipsoidalcs/",STR(?id3))) AS ?uriECS).
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/coordinatesystemaxis/",STRAFTER(STR(?axid3),"#"))) AS ?uriAX3).
+      FILTER regex(str(?o3), ".*EllipsoidalCS.*")}
+   UNION
+      {
+	?s4 ?p4 ?x4.
+    ?s4 gml:identifier ?o4.
+    ?s4 gml:id ?id4.
+	?s4 gml:name ?name4.
+	OPTIONAL{?s4 gml:name [ gml:codeSpace ?val4; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg4]}.
+	?s4 gml:usesAxis ?ax4.
+	?ax4 <http://www.w3.org/1999/xlink#href> ?axid4.
+	BIND ((strlang(?name4, "fr")) AS ?nom4).
+	BIND ((STR(?valepsg4)) AS ?epsg4).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/cartesiancs/",STR(?id4))) AS ?uriCCS).
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/coordinatesystemaxis/",STRAFTER(STR(?axid4),"#"))) AS ?uriAX4).
+      FILTER regex(str(?o4), ".*CartesianCS.*")}
+   UNION
+      {
+	?s5 ?p5 ?x5.
+    ?s5 gml:identifier ?o5.
+	?s5 gml:id ?id5.
+	?s5 gml:name ?name5.
+	OPTIONAL{?s5 gml:name [ gml:codeSpace ?val5; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg5]}.
+	?s5 gml:usesAxis ?ax5.
+	?ax5 <http://www.w3.org/1999/xlink#href> ?axid5.
+	BIND ((strlang(?name5, "fr")) AS ?nom5).
+	BIND ((STR(?valepsg5)) AS ?epsg5).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/verticalcs/",STR(?id5))) AS ?uriVCS).
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/coordinatesystemaxis/",STRAFTER(STR(?axid5),"#"))) AS ?uriAX5).
+    FILTER regex(str(?o5), ".*VerticalCS.*")}
+      UNION
+      {
+	?s6 ?p6 ?x6.
+    ?s6 gml:identifier ?o6.
+	?s6 gml:id ?id6.
+	?s6 gml:name ?name6.
+	OPTIONAL{?s6 gml:name [ gml:codeSpace ?val6; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg6]}.
+	?s6 gml:greenwichLongitude ?long6.
+	?long6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?longval6.
+	?long6 <http://www.opengis.net/gml#uom> ?longuom6.
+	BIND ((strlang(?name6, "fr")) AS ?nom6).
+	BIND ((STR(?valepsg6)) AS ?epsg6).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/primemeridian/",STR(?id6))) AS ?uriPM).
+    FILTER regex(str(?o6), ".*PrimeMeridian.*")}
+      UNION
+      {
+	?s7 ?p7 ?x7.
+    ?s7 gml:identifier ?o7.
+    ?s7 gml:id ?id7.
+    ?s7 gml:name ?name7.
+	OPTIONAL{?s7 gml:name [ gml:codeSpace ?val7; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg7]}.
+	?s7 gml:axisAbbrev ?axab7.
+	?s7 gml:axisDirection ?axdir7.
+	?s7 gml:uom ?uomax7.
+	?axdir7 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?axdirid7.
+	BIND ((strlang(?name7, "fr")) AS ?nom7).
+	BIND ((STR(?valepsg7)) AS ?epsg7).
+	BIND ((strlang(?axdirid7, "en")) AS ?axdirlit7).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/coordinatesystemaxis/",STR(?id7))) AS ?uriAX).
+    FILTER regex(str(?o7), ".*Axis.*")}
+         UNION
+      {
+	?s8 ?p8 ?x8.
+    ?s8 gml:identifier ?o8.
+    ?s8 gml:id ?id8.
+    ?s8 gml:name ?name8.
+	OPTIONAL{?s8 gml:name [ gml:codeSpace ?val8; <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?valepsg8]}.
+	?s8 gml:semiMajorAxis ?smaj8.
+	?smaj8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?smajval8.
+	?smaj8 gml:uom ?smajuom8.
+	?s8 gml:secondDefiningParameter ?param8.
+	?param8 gml:SecondDefiningParameter ?param28.
+	OPTIONAL {?param28 gml:inverseFlattening ?invflat8.
+			?invflat8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?invflatval8.
+			?invflat8 gml:uom ?invflatuom8.}
+	OPTIONAL { ?param28 gml:semiMinorAxis ?smin8.
+			?smin8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?sminval8.
+			?smin8 gml:uom ?sminuom8.}
+
+	BIND ((strlang(?name8, "fr")) AS ?nom8).
+	BIND ((STR(?valepsg8)) AS ?epsg8).
+    BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/ellipsoid/",STR(?id8))) AS ?uriEL).
+    FILTER regex(str(?o8), ".*gml:Ellipsoid.*")}
+
+} 
+
+
+

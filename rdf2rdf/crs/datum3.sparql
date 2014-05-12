@@ -1,0 +1,74 @@
+PREFIX gml: <http://www.opengis.net/gml#>
+PREFIX ignf: <http://data.ign.fr/def/ignf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+# Nettoyage des unités de mesure
+
+CONSTRUCT { 
+	?s ?p ?o.
+	
+	?s1 qudt:unit unit:Meter.
+	
+	?s2 qudt:unit unit:Radian.
+	
+	?s3 qudt:unit unit:DegreeAngle.
+	
+	?s4 qudt:unit unit:DegreeAngle.
+	
+	?s5 qudt:unit unit:Grad.
+	
+	?s6 qudt:unit unit:DegreeAngle.
+	
+	?s7 qudt:unit unit:Unitless.}
+	
+FROM <http://data.ign.fr/id/ignf-obj-geo-2>
+
+WHERE {
+{?s ?p ?o.
+FILTER (?p!= gml:uom)}
+UNION
+{
+?s1 gml:uom ?val.
+FILTER regex(str(?val), ".*m$")}
+
+UNION
+
+{
+?s2 gml:uom ?val2.
+FILTER regex(str(?val2), ".*rad$")}
+
+UNION
+
+{
+?s3 gml:uom ?val3.
+FILTER regex(str(?val3), ".*dec$")}
+
+UNION
+
+{
+?s4 gml:uom ?val4.
+FILTER regex(str(?val4), ".*deg$")}
+
+UNION
+
+{
+?s5 gml:uom ?val5.
+FILTER regex(str(?val5), ".*gr$")}
+
+UNION
+
+{
+?s6 gml:uom ?val6.
+FILTER regex(str(?val6), ".*9121$")}
+
+UNION
+
+{
+?s7 gml:uom ?val7.
+FILTER regex(str(?val7), "UNITE")}
+
+}
+
+

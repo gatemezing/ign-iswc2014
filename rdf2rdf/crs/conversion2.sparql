@@ -1,0 +1,39 @@
+prefix gmx: <http://www.isotc211.org/2005/gmx#>
+prefix gml: <http://www.opengis.net/gml#>
+prefix ignf: <http://data.ign.fr/def/ignf#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+CONSTRUCT 
+{    											
+?uri a ignf:Conversion;
+rdfs:label ?namefr;
+ignf:scope ?scopefr;
+ignf:epsgID ?valepsg;
+ignf:usesMethod ?uriMthd;
+ignf:usesValue [ a ignf:OperationParameterValue; qudt:value ?valeur; qudt:unit ?uom; ignf:parameter ?uriParam].
+	
+  }
+FROM <http://data.ign.fr/id/ignf-conversion1>
+WHERE 
+ 
+{
+?uri a ignf:Conversion;
+rdfs:label ?namefr;
+ignf:scope ?scopefr.
+OPTIONAL{?uri ignf:epsgID ?valepsg}.
+?uri ignf:usesMethod ?uriMthd;
+gml:usesValue ?val.
+	?val gml:ParameterValue ?prmtv.
+	?prmtv gml:value ?prmtv2.
+	?prmtv gml:valueOfParameter ?voprmt.
+	?prmtv2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?prmtv3.
+	?prmtv2 gml:uom ?uom.
+	?voprmt <http://www.w3.org/1999/xlink#href> ?vop.
+	
+	BIND (IRI(CONCAT("http://data.ign.fr/id/ignf/parameter/",(STRAFTER(STR(?vop),"#")))) AS ?uriParam).
+
+   bind (strdt(?prmtv3, xsd:double) as ?valeur)    
+
+}  

@@ -1,0 +1,61 @@
+PREFIX geofla: <http://data.ign.fr/def/geofla#>
+PREFIX geom: <http://data.ign.fr/def/geometrie#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gspql: <http://www.opengis.net/ont/geosparql#>
+
+CONSTRUCT {  
+ ?x a geofla:Canton.
+ ?x geofla:codeCant ?val1.
+ ?x geom:geometry ?w.
+ ?x geofla:chefLieu ?chf.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs ?val10.
+ ?y gspql:asWKT ?wktChf.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?val11.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs ?val14.
+ ?z gspql:asWKT ?wktCtr.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr
+ }
+
+FROM <http://data.ign.fr/id/geofla/canton-rdf-1>
+
+ 
+WHERE {
+ ?x a geofla:Canton.
+ ?x geofla:codeCant ?val1.
+ ?x geom:geometry ?w.
+ ?x geofla:chefLieu ?chf.
+ ?x geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?val7.
+ ?y geom:coordY ?val8.
+ ?y geom:crs ?val10.
+ ?w a geom:MultiPolygon.
+ ?w gspql:asWKT ?wkt.
+ ?w geom:crs ?val11.
+ ?w geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?val12.
+ ?z geom:coordY ?val13.
+ ?z geom:crs ?val14.
+ ?x geofla:dpt ?dpt.
+ ?x geofla:region ?reg.
+ ?x geofla:arr ?arr.  
+ BIND (STRDT ( STR (?val7), xsd:double) AS ?valXCHF).
+ BIND (STRDT ( STR (?val8), xsd:double) AS ?valYCHF).
+ BIND (STRDT ( STR (?val12), xsd:double) AS ?valXCTR).
+ BIND (STRDT ( STR (?val13), xsd:double) AS ?valYCTR).
+ BIND (STRDT (CONCAT( "<http://data.ign.fr/id/ignf/crs/RGF93LAMB93> POINT(",STR (?val7)," ",STR (?val8),")"), gspql:wktLiteral) AS ?wktChf).
+ BIND (STRDT (CONCAT( "<http://data.ign.fr/id/ignf/crs/RGF93LAMB93> POINT(",STR (?val12)," ",STR (?val13),")"), gspql:wktLiteral) AS ?wktCtr)
+ }

@@ -1,0 +1,58 @@
+PREFIX gml: <http://www.opengis.net/gml#>
+PREFIX ignf: <http://data.ign.fr/def/ignf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX unit: <http://qudt.org/vocab/unit#>
+
+# Nettoyage des unités de mesure
+
+CONSTRUCT { 
+	?s ?p ?o.
+	
+	?s1 qudt:unit unit:Meter.
+	
+	?s2 qudt:unit unit:Radian.
+	
+	?s3 qudt:unit unit:SecondAngle.
+	
+	?s8 qudt:unit unit:DegreeAngle.
+	
+	?s7 qudt:unit unit:Unitless.}
+	
+FROM <http://data.ign.fr/id/ignf-conversion2>
+
+WHERE {
+{?s ?p ?o.
+FILTER (?p!= qudt:unit)}
+UNION
+{
+?s1 qudt:unit ?val.
+FILTER regex(str(?val), ".*m$")}
+
+UNION
+
+{
+?s2 qudt:unit ?val2.
+FILTER regex(str(?val2), ".*rad$")}
+
+UNION
+
+{
+?s3 qudt:unit ?val3.
+FILTER regex(str(?val3), ".*sec$")}
+
+UNION
+
+{
+?s7 qudt:unit ?val7.
+FILTER regex(str(?val7), "UNITE")}
+
+UNION
+
+{
+?s8 qudt:unit ?val8.
+FILTER regex(str(?val8), ".*deg$")}
+
+}
+
+

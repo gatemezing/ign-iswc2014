@@ -1,0 +1,30 @@
+PREFIX geofla: <http://data.ign.fr/def/geofla#>
+PREFIX geom: <http://data.ign.fr/def/geometrie#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gsp: <http://www.opengis.net/ont/geosparql#>
+
+CONSTRUCT {  
+ ?x2 a geofla:Region.
+ ?x2 geofla:codeReg ?code.
+ ?x2 rdfs:label ?toponyme.
+ ?x2 geom:geometry ?val3.
+ ?val3 a geom:MultiPolygon.
+ ?val3 gsp:asWKT ?wkt.
+ ?val3 geom:crs <http://data.ign.fr/id/ignf/crs/WGS84GDD>}
+
+FROM <http://data.ign.fr/id/geofla/region>
+ 
+WHERE {
+ ?x a geofla:Region.
+ ?x <http://data.ign.fr/id/geofla/region#code_reg> ?val1.
+ ?x <http://data.ign.fr/id/geofla/region#nom_region> ?val2.
+ ?x <http://data.ign.fr/ontology/geometrie#Geometrie> ?val3.
+ ?val3 a ?val4.
+ ?val3 gsp:asWKT ?val5.
+ ?val3 <http://data.ign.fr/ontology/geometrie#systCoord> ?val6.
+ BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/region/",?val1)) AS ?x2).
+ BIND (strlang(?val2, "fr") AS ?toponyme).
+ BIND (STR(?val1) AS ?code).
+ BIND (strdt(CONCAT("<http://data.ign.fr/id/ignf/crs/WGS84GDD> ",?val5),gsp:wktLiteral) AS ?wkt)
+ }
+

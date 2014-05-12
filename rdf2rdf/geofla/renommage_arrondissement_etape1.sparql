@@ -1,0 +1,58 @@
+PREFIX geofla: <http://data.ign.fr/def/geofla#>
+PREFIX geom: <http://data.ign.fr/def/geometrie#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gspql: <http://www.opengis.net/ont/geosparql#>
+
+CONSTRUCT {  
+ ?x2 a geofla:Arrondissement.
+ ?x2 geofla:codeArr ?code.
+ ?x2 geom:geometry ?val3.
+ ?val3 a geom:MultiPolygon.
+ ?val3 gspql:asWKT ?wkt.
+ ?val3 geom:crs <http://data.ign.fr/id/ignf/crs/WGS84GDD>.
+ ?x2 geofla:chefLieu ?chf.
+ ?x2 geofla:siegeDuChefLieu ?y.
+ ?y a geom:Point.
+ ?y geom:coordX ?valXCHF.
+ ?y geom:coordY ?valYCHF.
+ ?y geom:crs <http://data.ign.fr/id/ignf/crs/RGF93LAMB93>.
+ ?x2 geofla:dpt ?dpt.
+ ?x2 geofla:region ?reg.
+ ?x2 owl:sameAs ?valInsee.
+ ?val3 geom:centroid ?z.
+ ?z a geom:Point.
+ ?z geom:coordX ?valXCTR.
+ ?z geom:coordY ?valYCTR.
+ ?z geom:crs <http://data.ign.fr/id/ignf/crs/RGF93LAMB93>
+ }
+
+FROM <http://data.ign.fr/id/geofla/arrondissement>
+ 
+WHERE {
+ ?x a geofla:Arrondissement.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#CODE_ARR> ?val1.
+ ?x <http://data.ign.fr/ontology/geometrie#Geometrie> ?val3.
+ ?val3 a ?val4.
+ ?val3 gspql:asWKT ?val5.
+ ?val3 <http://data.ign.fr/ontology/geometrie#systCoord> ?val6.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#CODE_CHF> ?val7.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#X_CHF_LIEU> ?val8.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#Y_CHF_LIEU> ?val9.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#X_CENTROID> ?val10.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#Y_CENTROID> ?val11.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#CODE_DEPT> ?val13.
+ ?x <http://data.ign.fr/id/geofla/arrondissement#CODE_REG> ?val12.
+  BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/arrondissement/",?val13,?val1)) AS ?x2).
+  BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/region/",?val12)) AS ?reg).
+  BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/departement/",?val13)) AS ?dpt).
+  BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/commune/",?val13,?val7)) AS ?chf).
+  BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/arrondissement/Point_",?val13,?val7)) AS ?y).
+  BIND (IRI(CONCAT("http://data.ign.fr/id/geofla/arrondissement/Point_",?val13,?val1)) AS ?z).
+  BIND (STR(?val1) AS ?code).
+  BIND ((?val8*100) AS ?valXCHF).
+  BIND ((?val9*100)AS ?valYCHF).
+  BIND ((?val10*100)AS ?valXCTR).
+  BIND ((?val11*100)AS ?valYCTR).
+  BIND (strdt(CONCAT( "<http://data.ign.fr/id/ignf/crs/WGS84GDD> ",?val5),gspql:wktLiteral) AS ?wkt).
+  BIND (IRI(CONCAT("http://id.insee.fr/geo/arrondissement/",STR(?val13), STR(?val1))) AS ?valInsee)
+ }
