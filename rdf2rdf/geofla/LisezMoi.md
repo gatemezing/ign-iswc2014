@@ -1,5 +1,10 @@
+Que contient ce fichier?
+=========
 Ces fichier SPARQL permettent de nettoyer les données de la base Geofla une fois celles-ci converties en RDF avec la plateforme Datalift. Le « nettoyage » se fait en plusieurs étapes car la plateforme supporte mal le traitement simultané de trop grandes quantités de données.
 Les données sont remises en forme (identifiants convertis en URIs, valeurs converties en littéraux, etc.) et typées à l'aide des ontologies geofla et geometrie.
+
+Comment executer les requetes
+===========
 Il faut appliquer ces requêtes dans l'ordre suivant:
   - sur le jeu de données RDF des régions: renommage_region.sparql
   - sur le jeu de données RDF des départements: renommage_departement_etape1.sparql 
@@ -12,4 +17,4 @@ Il faut appliquer ces requêtes dans l'ordre suivant:
   - sur le jeu de données RDF commune-rdf-1: renommage_ commune _etape2.sparql
   - sur le jeu de données RDF commune-rdf-2: renommage_ commune _etape3.sparql
 
-Les données sont alors prêtes pour la publication.
+Voila, les données sont alors prêtes pour la publication.
