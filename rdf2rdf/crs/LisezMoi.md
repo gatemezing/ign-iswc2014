@@ -41,6 +41,7 @@ Puis exporter en Turtle les fichiers RDF correspondant aux jeux de données suiv
 	
 Enfin, coller l'ensemble des données dans un même fichier Turtle qui pourra être chargé directement à l'aide de la plateforme (à créer avec Notepad++ par exemple). Voir chargement en Figure 1.
 NB : Attention à bien remettre les bons préfixes (perdus lors de l'export des données depuis la plateforme):
+	
 	@prefix ignf: <http://data.ign.fr/def/ignf#>.
 	@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 	@prefix qudt: <http://qudt.org/schema/qudt#>.
