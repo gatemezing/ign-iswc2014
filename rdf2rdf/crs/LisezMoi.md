@@ -3,7 +3,7 @@ Que contient ce fichier?
 Ces fichier SPARQL permettent de nettoyer les données du fichier XML http://librairies.ign.fr/geoportail/resources/IGNF.xml une fois celles-ci converties en RDF avec la plateforme Datalift. Le « nettoyage » se fait en plusieurs étapes car la plateforme supporte mal le traitement simultané de trop grandes quantités de données.
 Les données sont remises en forme (identifiants convertis en URIs, valeurs converties en littéraux, etc.) et typées à l'aide des ontologies ignf et qudt.
 
-Cette ficgure https://www.dropbox.com/s/sv6bjhu89bjix94/Capture%20d%27%C3%A9cran%202014-05-13%2009.14.38.png montre les etapes de chargement des donnees sur la plateforme Datalift. 
+Cette figure http://bit.ly/1ghGsTf montre les etapes de chargement des donnees sur la plateforme Datalift. 
 Etapes pour les requetes
 =========
 Il faut appliquer ces requêtes dans l'ordre suivant:
