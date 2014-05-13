@@ -1,7 +1,10 @@
-But
+Que contient ce fichier?
 ========
 Ces fichier SPARQL permettent de nettoyer les données du fichier XML http://librairies.ign.fr/geoportail/resources/IGNF.xml une fois celles-ci converties en RDF avec la plateforme Datalift. Le « nettoyage » se fait en plusieurs étapes car la plateforme supporte mal le traitement simultané de trop grandes quantités de données.
 Les données sont remises en forme (identifiants convertis en URIs, valeurs converties en littéraux, etc.) et typées à l'aide des ontologies ignf et qudt.
+
+Etapes pour les requetes
+=========
 Il faut appliquer ces requêtes dans l'ordre suivant:
 - sur le jeu de données RDF brutes:
 	- GeographicCRS.sparql
@@ -21,6 +24,9 @@ Il faut appliquer ces requêtes dans l'ordre suivant:
 - sur le jeu de données methode1: Methode2.sparql
 - sur le jeu de données transformation1: Transformation2.sparql
 - sur le jeu de données transformation2: Transformation3.sparql
+
+Export des donnees en Turtle
+==========
 Puis exporter en Turtle les fichiers RDF correspondant aux jeux de données suivants:
 	- GeographicCRS
 	- GeocentricCRS
