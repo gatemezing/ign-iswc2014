@@ -1,3 +1,5 @@
+But
+========
 Ces fichier SPARQL permettent de nettoyer les données du fichier XML http://librairies.ign.fr/geoportail/resources/IGNF.xml une fois celles-ci converties en RDF avec la plateforme Datalift. Le « nettoyage » se fait en plusieurs étapes car la plateforme supporte mal le traitement simultané de trop grandes quantités de données.
 Les données sont remises en forme (identifiants convertis en URIs, valeurs converties en littéraux, etc.) et typées à l'aide des ontologies ignf et qudt.
 Il faut appliquer ces requêtes dans l'ordre suivant:
