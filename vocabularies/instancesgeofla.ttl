@@ -1,0 +1,67 @@
+@prefix geofla: <http://data.ign.fr/def/geofla#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix statut: <http://data.ign.fr/id/codes/geofla/typedecommune/>.
+
+
+
+# ---Les instances du vocabulaire geofla ------
+
+statut:CapitaleDEtat a geofla:TypeDeCommune,
+		skos:Concept;
+	skos:definition "Commune principale d'un état, siège du gouvernement et de l'administration."@fr;
+	skos:inScheme statut:liste;
+	skos:prefLabel "capitale d'état"@fr,
+		"state capital"@en.
+
+statut:ChefLieuDeCanton a geofla:TypeDeCommune,
+		skos:Concept;
+	skos:definition "Chef-lieu d'un canton français."@fr;
+	skos:inScheme statut:liste;
+	skos:prefLabel "chef-lieu de canton"@fr,
+		"township capital"@en.
+
+statut:CommuneSimple a geofla:TypeDeCommune,
+		skos:Concept;
+	skos:definition "Commune sans rôle administratif particulier."@fr;
+	skos:inScheme statut:liste;
+	skos:prefLabel "commune simple"@fr,
+		"simple commune"@en.
+
+statut:liste a skos:ConceptScheme;
+	rdfs:comment "Liste des différents rôles pouvant être joués par une commune dans l'organisation administrative française, représentés comme une liste de concepts SKOS."@fr;
+	rdfs:label "type de commune"@fr;
+	rdfs:label "type of commune"@en.
+
+statut:PrefectureDeDepartement a geofla:TypeDeCommune,
+		skos:Concept;
+	skos:definition "Chef-lieu d'un département français."@fr;
+	skos:inScheme statut:liste;
+	skos:prefLabel "prefecture"@en,
+		"préfecture de département"@fr.
+
+statut:PrefectureDeRegion a geofla:TypeDeCommune,
+		skos:Concept;
+	skos:definition "Chef-lieu d'une région française."@fr;
+	skos:inScheme statut:liste;
+	skos:prefLabel "préfecture de région"@fr,
+		"regional prefecture"@en.
+
+statut:SousPrefecture a geofla:TypeDeCommune,
+		skos:Concept;
+	skos:definition "Chef-lieu d'un arrondissement français."@fr;
+	skos:inScheme statut:liste;
+	skos:prefLabel "sous-préfecture"@fr,
+		"subprefecture"@en.
+
+
+
+
+
+
+
+
+
+
+
+
+
