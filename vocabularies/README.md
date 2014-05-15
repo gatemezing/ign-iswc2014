@@ -9,5 +9,5 @@ This folder contains 4 vocabularies implemented, and one file instances for bett
   3- **ignf.ttl** is the vocabulary for CRS in RDF.
   
   4- **topo.ttl** is the file containing the vocabulary for topographic entities.
-  
-  5 - **instancesgeofla.ttl* contains SKOS concepts for the statut of a district.
+
+  5- **instancesgeofla.ttl** contains SKOS concepts for the statut of a district.
