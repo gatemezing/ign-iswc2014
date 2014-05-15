@@ -9,6 +9,8 @@ Resources used in the ISWC 2014 paper. It contains three main folders:
    
    3- **rdf2rdf**: The set of SPARQL queries used to transform raw RDF from shape files.
    
+   4- **vocabularies**: The vocabularies implemented in this project.
+   
    
 Useful links
 ==========
