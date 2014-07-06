@@ -1,0 +1,43 @@
+#### mappings topo.ttl with Geonames #######
+############################################
+
+prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+
+
+##classes here###
+#################
+
+<http://data.ign.fr/def/topo#Place> owl:subclassOf <http://www.geonames.org/ontology#S> .
+
+
+####SKOS concepts here ###
+#########################
+
+<http://data.ign.fr/id/codes/topo/typedefranchissement/Gue> owl:sameAs <http://www.geonames.org/ontology#T.FORD> .
+
+<http://data.ign.fr/id/codes/topo/typedezai/Arbre> owl:sameAs <http://www.geonames.org/ontology#V.TREE> .
+
+<http://data.ign.fr/id/codes/topo/typederelief/Montagne> owl:sameAs <http://www.geonames.org/ontology#T.MT> .
+
+<http://data.ign.fr/id/codes/topo/typedefranchissement/Ecluse> owl:sameAs <http://www.geonames.org/ontology#S.LOCK> .
+
+<http://data.ign.fr/id/codes/topo/typedeconstruction/Barrage> owl:sameAs <http://www.geonames.org/ontology#S.DAM> .
+
+<http://data.ign.fr/id/codes/topo/typederelief/Dune> owl.sameAs <http://www.geonames.org/ontology#T.DUNE> .
+
+<http://data.ign.fr/id/codes/topo/typederelief/Grotte> owl:sameAs <http://www.geonames.org/ontology#S.CAVE> .
+
+<http://data.ign.fr/id/codes/topo/typedezai/Baie> <http://www.geonames.org/ontology#H.BAY> .
+
+<http://data.ign.fr/id/codes/topo/typedeconstruction/Ruines> owl:sameAs <http://www.geonames.org/ontology#S.RUIN> .
+
+<http://data.ign.fr/id/codes/topo/typedezai/Parc> owl:sameAs <http://www.geonames.org/ontology#L.PRK> .
+
+<http://data.ign.fr/id/codes/topo/typederelief/Cap> owl:sameAs <http://www.geonames.org/ontology#T.CAPE> .
+
+<http://data.ign.fr/id/codes/topo/typedezai/MaisonForestiere> owl:sameAs <http://www.geonames.org/ontology#S.HSE> .
+
+<http://data.ign.fr/id/codes/topo/typedezai/Banc> owl:sameAs <http://www.geonames.org/ontology#U.BNKU> .
+
+<http://data.ign.fr/id/codes/topo/typedezai/Digue> owl:sameAs <http://www.geonames.org/ontology#S.DIKE> .
