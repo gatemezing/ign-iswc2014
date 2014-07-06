@@ -24,11 +24,11 @@ prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <http://data.ign.fr/id/codes/topo/typedeconstruction/Barrage> owl:sameAs <http://www.geonames.org/ontology#S.DAM> .
 
-<http://data.ign.fr/id/codes/topo/typederelief/Dune> owl.sameAs <http://www.geonames.org/ontology#T.DUNE> .
+<http://data.ign.fr/id/codes/topo/typederelief/Dune> owl:sameAs <http://www.geonames.org/ontology#T.DUNE> .
 
 <http://data.ign.fr/id/codes/topo/typederelief/Grotte> owl:sameAs <http://www.geonames.org/ontology#S.CAVE> .
 
-<http://data.ign.fr/id/codes/topo/typedezai/Baie> <http://www.geonames.org/ontology#H.BAY> .
+<http://data.ign.fr/id/codes/topo/typedezai/Baie> owl:sameAs <http://www.geonames.org/ontology#H.BAY> .
 
 <http://data.ign.fr/id/codes/topo/typedeconstruction/Ruines> owl:sameAs <http://www.geonames.org/ontology#S.RUIN> .
 
