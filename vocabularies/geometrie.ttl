@@ -15,345 +15,298 @@
 @prefix ngeo: <http://geovocab.org/geometry#>.
 @prefix ignf: <http://data.ign.fr/def/ignf#>.
 
-
-# ----Les métadonnées ici ------
+# ---- Ontology metadata -----
 <http://data.ign.fr/def/geometrie> a owl:Ontology;
 	dcterms:description "Ontologie des primitives géométriques représentant la forme et la localisation d'entités topographiques."@fr;
 	dcterms:title "Ontologie des primitives géométriques"@fr;
-	cc:license <http://creativecommons.org/licenses/by/3.0/> ;
+    cc:license <http://www.data.gouv.fr/Licence-Ouverte-Open-Licence> ;
+	cc:license <http://creativecommons.org/licenses/by/2.0/> ;
+	cc:license <http://opendatacommons.org/licenses/by/> ;
     dcterms:creator <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Nathalie&nom=Abadie> ;	
     dcterms:creator <http://www.eurecom.fr/~atemezin/> ;
     dcterms:contributor <http://www.eurecom.fr/~troncy/> ;
     dcterms:contributor <http://data.semanticweb.org/person/bernard-vatant> ;
 	dcterms:contributor <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Bénédicte&nom=Bucher> ;
 	dcterms:issued "2013-06-11"^^xsd:date ;
-    dcterms:modified "2013-10-01"^^xsd:date ;
-	dcterms:modified "2014-02-28"^^xsd:date ;
 	dcterms:modified "2014-08-22"^^xsd:date ;
     dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re> ;
     vann:preferredNamespacePrefix "geom" ;
     vann:preferredNamespaceUri <http://data.ign.fr/def/geometrie#> ;
-    dc:rights "Copyright © 2013 IGN" ; 
-    cc:license <http://www.data.gouv.fr/Licence-Ouverte-Open-Licence> ;
-    owl:versionInfo "Version 1.0 - 2013-11-12" .
-	
+    owl:versionInfo "Version 1.0 - 2014-08-22" .
 
-# ----Déclaration des personnes ----------------
+# ---- Contributors ----
 <http://data.semanticweb.org/person/bernard-vatant> a foaf:Person.
 <http://www.eurecom.fr/~atemezin/> a foaf:Person.
 <http://www.eurecom.fr/~troncy/> a foaf:Person.
 <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Nathalie&nom=Abadie> a foaf:Person.
 <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Bénédicte&nom=Bucher> a foaf:Person.
 
-
-# ----Les classes commencent ici ------
+# ---- Classes definition ----
 
 geom:Geometry a owl:Class;
-	rdfs:comment "Primitive géométrique non instanciable, racine de l'ontologie des primitives géométriques. Une géométrie est associée à  un système de coordonnées et un seul."@fr;
+	rdfs:comment "Primitive géométrique non instanciable, racine de l'ontologie des primitives géométriques. Une géométrie est associée à un système de coordonnées et un seul."@fr;
 	rdfs:label "Géométrie"@fr, "Geometry"@en;
 	owl:equivalentClass [ a owl:Restriction;
-				owl:onClass ignf:CoordinatesSystem;
-				owl:onProperty geom:crs;
-				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger];
+		owl:onClass ignf:CoordinatesSystem;
+		owl:onProperty geom:crs;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger];
 	rdfs:subClassOf ngeo:Geometry;
 	rdfs:subClassOf sf:Geometry.
-	
 
 geom:Point a owl:Class;
 	rdfs:comment "Primitive géométrique permettant de représenter une position géographique. Cette position est représentée via des coordonnées X et Y exprimées dans un système de coordonnées donné. Si le système de coordonnées associé au point le permet, ce dernier peut également avoir des coordonnées Z et M."@fr;
-	rdfs:label "Point"@en,
-		"Point"@fr;
+	rdfs:label "Point"@en, "Point"@fr;
 	rdfs:subClassOf geom:Geometry;
-	owl:equivalentClass 
- 	 [ a  owl:Class ;
-		owl:intersectionOf
-			([ a owl:Restriction;
+	rdfs:subClassOf sf:Point;
+	owl:equivalentClass [ a  owl:Class ;
+		owl:intersectionOf (
+			[ a owl:Restriction;
 				owl:onDataRange xsd:double;
 				owl:onProperty geom:coordY;
 				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ]
        
-             [ a owl:Restriction;
+            [ a owl:Restriction;
 				owl:onDataRange xsd:double;
 				owl:onProperty geom:coordX;
 				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger]
 
-             [ a owl:Restriction;
+            [ a owl:Restriction;
 				owl:onDataRange xsd:double;
 				owl:onProperty geom:coordZ;
 				owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger]
 
-             [ a owl:Restriction;
+            [ a owl:Restriction;
 				owl:onDataRange xsd:double;
 				owl:onProperty geom:coordM;
 				owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger]
-             )
-           ] ;
-
-        rdfs:subClassOf sf:Point.
-
+        )
+    ].
 
 geom:Curve a owl:Class;
 	rdfs:comment "Primitive géométrique représentant une courbe. Elle n'est pas instanciable. Ses spécialisations sont instanciées sous la forme d'une liste ordonnée de points associée à une fonction d'interpolation."@fr;
-	rdfs:label "Courbe"@fr,
-		"Curve"@en;
+	rdfs:label "Courbe"@fr, "Curve"@en;
 	rdfs:subClassOf geom:Geometry;
 	rdfs:subClassOf sf:Curve.
 
-
 geom:Surface a owl:Class;
-	rdfs:comment " Primitive géométrique représentant localement une image continue d'une région d'un plan. Elle n'est pas instanciable. Le contour d'une surface est un ensemble de courbes fermées correspondant à  ses frontières."@fr;
-	rdfs:label "Surface"@en,
-		"Surface"@fr;
+	rdfs:comment " Primitive géométrique représentant localement une image continue d'une région d'un plan. Elle n'est pas instanciable. Le contour d'une surface est un ensemble de courbes fermées correspondant à ses frontières."@fr;
+	rdfs:label "Surface"@en, "Surface"@fr;
 	rdfs:subClassOf geom:Geometry;
 	rdfs:subClassOf sf:Surface.
 
-	
 geom:Envelope a owl:Class;
 	rdfs:comment " Primitive géométrique représentant l'enveloppe minimale d'une géométrie. Une enveloppe est représentée par deux points: son coin de coordonnées maximales et son coin de coordonnées minimales."@fr;
-	rdfs:label "Envelope"@en,
-		"Enveloppe"@fr;
-	owl:equivalentClass  
-	[ a  owl:Class ;
-		owl:intersectionOf
-			([ a owl:Restriction;
+	rdfs:label "Envelope"@en, "Enveloppe"@fr;
+	owl:equivalentClass  [ a  owl:Class ;
+		owl:intersectionOf (
+			[ a owl:Restriction;
 				owl:onClass geom:Point;
 				owl:onProperty geom:upperCorner;
 				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ]
 				
-             [ a owl:Restriction;
+            [ a owl:Restriction;
 				owl:onClass geom:Point;
 				owl:onProperty geom:lowerCorner;
 				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger]
  
-			)
+		)
     ] ;
 	rdfs:subClassOf geom:Geometry.
-	
 
 geom:Polygon a owl:Class;
 	rdfs:comment "Primitive géométrique spécialisant la primitive Surface. C'est une surface plane définie par une frontière extérieure et zéro ou plusieurs frontières intérieures. Chaque frontière intérieure définit un trou dans le polygone."@fr;
-	rdfs:label "Polygon"@en,
-		"Polygone"@fr;
+	rdfs:label "Polygon"@en, "Polygone"@fr;
 	rdfs:subClassOf geom:Surface;
 	owl:equivalentClass [ 
-				a owl:Restriction;
-				owl:someValuesFrom geom:LinearRing;
-				owl:onProperty geom:exterior];
-	rdfs:subClassOf 
-	[ a  owl:Class ;
-		owl:intersectionOf
-			([ a owl:Restriction;
+		a owl:Restriction;
+			owl:someValuesFrom geom:LinearRing;
+			owl:onProperty geom:exterior];
+	rdfs:subClassOf [ a  owl:Class ;
+		owl:intersectionOf (
+			[ a owl:Restriction;
 				owl:onClass geom:LinearRing;
 				owl:onProperty geom:exterior;
 				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ]
 				
-             [ a owl:Restriction;
+            [ a owl:Restriction;
 				owl:someValuesFrom geom:LinearRing;
 				owl:onProperty geom:interior;
-				] )
+			]
+		)
     ] ;
 	rdfs:subClassOf sf:Polygon.
 
-
 geom:LineString a owl:Class;
 	rdfs:comment "Primitive géométrique spécialisant la primitive abstraite curve. Ses points sont reliés par une fonction d'interpolation linéaire. Chaque paire de points successifs constitue donc un segment de ligne droite."@fr;
-	rdfs:label "Line string"@en,
-		"Polyligne"@fr;
+	rdfs:label "Line string"@en, "Polyligne"@fr;
 	rdfs:subClassOf geom:Curve;
 	owl:equivalentClass [ 
-				a owl:Restriction;
-				owl:someValuesFrom geom:PointsList;
-				owl:onProperty geom:points];
+		a owl:Restriction;
+			owl:someValuesFrom geom:PointsList;
+			owl:onProperty geom:points];
 	rdfs:subClassOf [
-				a owl:Restriction;
-				owl:onClass geom:PointsList;
-				owl:onProperty geom:points;
-				owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger];
+		a owl:Restriction;
+			owl:onClass geom:PointsList;
+			owl:onProperty geom:points;
+			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger];
 	rdfs:subClassOf sf:LineString.
-
 
 geom:LinearRing a owl:Class;
 	rdfs:comment "Primitive géométrique spécialisant la primitive Polyligne. C'est une courbe simple et fermée."@fr;
-	rdfs:label "Anneau"@fr,
-		"Linear ring"@en;
+	rdfs:label "Anneau"@fr, "Linear ring"@en;
 	rdfs:subClassOf geom:LineString;
 	owl:equivalentClass	[ 
-				a owl:Restriction;
-				owl:someValuesFrom [ a owl:Class;
-							owl:intersectionOf(
-								geom:PointsList
-								[ a owl:Restriction;
-								owl:onClass geom:Point;
-								owl:onProperty geom:firstAndLast;
-								owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger; ])
-						];
-					owl:onProperty geom:points;
-				 ];
+		a owl:Restriction;
+			owl:someValuesFrom [ a owl:Class;
+				owl:intersectionOf(
+					geom:PointsList
+						[ a owl:Restriction;
+							owl:onClass geom:Point;
+							owl:onProperty geom:firstAndLast;
+							owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger; ])
+			];
+			owl:onProperty geom:points;
+	];
 	rdfs:subClassOf sf:LinearRing.
-
 
 geom:Line a owl:Class;
 	rdfs:comment "Primitive géométrique spécialisant la primitive Polyligne et composée de seulement deux points."@fr;
-	rdfs:label "Ligne"@fr,
-		"Line"@en;
+	rdfs:label "Ligne"@fr, "Line"@en;
 	rdfs:subClassOf geom:LineString;
 	owl:equivalentClass[
 		a owl:Restriction;
-				owl:someValuesFrom [ a owl:Class;
-							owl:intersectionOf(
-								geom:PointsList
-								
-								[ a owl:Restriction;
-								owl:someValuesFrom [ a owl:Class;
-											owl:intersectionOf(
-												geom:PointsList
-										
-												[ a owl:Restriction;
-												owl:onProperty rdf:rest;
-												owl:hasValue rdf:nil; ])];
-											
-												owl:onProperty rdf:rest; ]
-											
-								)];
-					owl:onProperty geom:points; ];
+			owl:someValuesFrom [ a owl:Class;
+				owl:intersectionOf(
+					geom:PointsList	
+						[ a owl:Restriction;
+							owl:someValuesFrom [ a owl:Class;
+								owl:intersectionOf(
+									geom:PointsList
+										[ a owl:Restriction;
+											owl:onProperty rdf:rest;
+											owl:hasValue rdf:nil; ])];
+							owl:onProperty rdf:rest; ]
+				)];
+			owl:onProperty geom:points; ];
 	rdfs:subClassOf sf:Line.
 
 geom:GeometryCollection a owl:Class;
 	rdfs:comment "Collection comprenant un ou plusieurs objets géométriques, sans structure interne. Tous les éléments d'une collection de géométries sont définis dans le même système de coordonnées."@fr;
-	rdfs:label "Collection de géométries"@fr,
-		"Geometry collection"@en;
+	rdfs:label "Collection de géométries"@fr, "Geometry collection"@en;
 	rdfs:subClassOf geom:Geometry;
 	rdfs:subClassOf sf:GeometryCollection.
  
 geom:MultiCurve a owl:Class;
 	rdfs:comment "Collection d'objets géométriques de type Courbe. Cette primitive n'est pas instanciable: elle définit des propriétés pour ses sous-classes."@fr;
-	rdfs:label "Multi curve"@en,
-		"Multicourbe"@fr;
+	rdfs:label "Multi curve"@en, "Multicourbe"@fr;
 	rdfs:subClassOf geom:GeometryCollection;
 	rdfs:subClassOf sf:MultiCurve.
 
 geom:MultiPoint a owl:Class;
 	rdfs:comment "Collection d'objets géométriques de type Point, non connectés et non ordonnés. Un multipoint est dit simple si tous ses points sont différents (i.e. ont des coordonnées différentes)."@fr;
-	rdfs:label "Multi point"@en,
-		"Multipoint"@fr;
+	rdfs:label "Multi point"@en, "Multipoint"@fr;
 	owl:equivalentClass [ 
-				a owl:Restriction;
-				owl:someValuesFrom geom:Point;
-				owl:onProperty geom:pointMember];
+		a owl:Restriction;
+			owl:someValuesFrom geom:Point;
+			owl:onProperty geom:pointMember];
 	rdfs:subClassOf geom:GeometryCollection;
 	rdfs:subClassOf sf:MultiPoint.
 
 geom:MultiPolygon a owl:Class;
 	rdfs:comment "Collection d'objets géométriques de type Polygone. C'est une MultiSurface dont tous les éléments sont des Polygones."@fr;
-	rdfs:label "Multi polygon"@en,
-		"Multipolygone"@fr;
+	rdfs:label "Multi polygon"@en, "Multipolygone"@fr;
 	owl:equivalentClass [ 
-				a owl:Restriction;
-				owl:someValuesFrom geom:Polygon;
-				owl:onProperty geom:polygonMember];
+		a owl:Restriction;
+			owl:someValuesFrom geom:Polygon;
+			owl:onProperty geom:polygonMember];
 	rdfs:subClassOf geom:MultiSurface;
 	rdfs:subClassOf sf:MultiPolygon.
 
 geom:MultiLineString a owl:Class;
 	rdfs:comment "Collection d'objets géométriques de type Polyligne. C'est une MultiCourbe dont tous les éléments sont des Polylignes."@fr;
-	rdfs:label "Multi line string"@en,
-		"Multipolyligne"@fr;
+	rdfs:label "Multi line string"@en, "Multipolyligne"@fr;
 	owl:equivalentClass [ 
-				a owl:Restriction;
-				owl:someValuesFrom geom:LineString;
-				owl:onProperty geom:lineStringMember];
+		a owl:Restriction;
+			owl:someValuesFrom geom:LineString;
+			owl:onProperty geom:lineStringMember];
 	rdfs:subClassOf geom:MultiCurve;
 	rdfs:subClassOf sf:MultiLineString.
 
 geom:MultiSurface a owl:Class;
 	rdfs:comment "Collection d'objets géométriques de type Surface. Cette primitive n'est pas instanciable: elle définit des propriétés pour ses sous classes."@fr;
-	rdfs:label "Multi surface"@en,
-		"Multisurface"@fr;
+	rdfs:label "Multi surface"@en, "Multisurface"@fr;
 	rdfs:subClassOf geom:GeometryCollection;
 	rdfs:subClassOf sf:MultiSurface.
 
 geom:PointsList a owl:Class;
-	rdfs:label "List of points"@en,
-		"Liste de points"@fr;
+	rdfs:label "List of points"@en, "Liste de points"@fr;
 	rdfs:subClassOf rdf:List;
 	rdfs:subClassOf [ a owl:Restriction;
-			  owl:allValuesFrom geom:Point;
-			  owl:onProperty rdf:first].
-
-
-			  
-# ----Les propriétés commencent ici ------
+		owl:allValuesFrom geom:Point;
+		owl:onProperty rdf:first].
+		
+# ---- Object Properties definition ----
 
 geom:firstAndLast a owl:ObjectProperty;
-	rdfs:comment "Désigne le point servant de point initial et de point final à  une liste circulaire de points."@fr;
+	rdfs:comment "Désigne le point servant de point initial et de point final à une liste circulaire de points."@fr;
 	rdfs:domain geom:PointsList;
-	rdfs:label "first and last"@en,
-		"premier et dernier"@fr;
+	rdfs:label "first and last"@en, "premier et dernier"@fr;
 	rdfs:subPropertyOf rdf:first;
 	rdfs:range geom:Point.
 
 geom:points a owl:ObjectProperty;
 	rdfs:comment "La liste ordonnée des points consitutant une géométrie de type curve."@fr;
 	rdfs:domain geom:Curve;
-	rdfs:label "points"@en,
-		"points"@fr;
+	rdfs:label "points"@en, "points"@fr;
 	rdfs:range geom:PointsList.
 
 geom:crs a owl:ObjectProperty;
 	rdfs:comment "Système de coordonnées associé à  une primitive géométrique."@fr;
 	rdfs:domain geom:Geometry;
-	rdfs:label "coordinate reference system"@en,
-		"système de coordonnées"@fr;
+	rdfs:label "coordinate reference system"@en, "système de coordonnées"@fr;
 	rdfs:range ignf:CRS.
 
 geom:boundary a owl:ObjectProperty;
 	rdfs:comment "Relie un polygone à un anneau décrivant sa frontière."@fr;
 	rdfs:domain geom:Polygon;
-	rdfs:label "frontière"@fr,
-		"boundary"@en;
+	rdfs:label "frontière"@fr, "boundary"@en;
 	rdfs:range geom:LinearRing.
 
 geom:interior a owl:ObjectProperty;
 	rdfs:comment "Relie un polygone à un anneau décrivant un trou dans sa surface."@fr;
 	rdfs:domain geom:Polygon;
-	rdfs:label "intérieur"@fr,
-		"interior"@en;
+	rdfs:label "intérieur"@fr, "interior"@en;
 	rdfs:range geom:LinearRing;
 	rdfs:subPropertyOf geom:boundary.
 
 geom:exterior a owl:ObjectProperty;
 	rdfs:comment "Relie un polygone à un anneau décrivant le contour extérieur de sa surface."@fr;
 	rdfs:domain geom:Polygon;
-	rdfs:label "extérieur"@fr,
-		"exterior"@en;
+	rdfs:label "extérieur"@fr, "exterior"@en;
 	rdfs:range geom:LinearRing;
 	rdfs:subPropertyOf geom:boundary.
 
 geom:pointMember a owl:ObjectProperty;
 	rdfs:comment "Relie une géométrie de type multipoint aux points qui la composent."@fr;
 	rdfs:domain geom:MultiPoint;
-	rdfs:label "point membre"@fr,
-		"point member"@en;
+	rdfs:label "point membre"@fr, "point member"@en;
 	rdfs:range geom:Point.
 
 geom:lineStringMember a owl:ObjectProperty;
 	rdfs:comment "Relie une géométrie de type multilinestring aux linestrings qui la composent."@fr;
 	rdfs:domain geom:MultiLineString;
-	rdfs:label "polyligne membre"@fr,
-		"line string member"@en;
+	rdfs:label "polyligne membre"@fr, "line string member"@en;
 	rdfs:range geom:LineString.
 
 geom:polygonMember a owl:ObjectProperty;
 	rdfs:comment "Relie une géométrie de type multipolygones aux polygones qui la composent."@fr;
 	rdfs:domain geom:MultiPolygon;
-	rdfs:label "polygone membre"@fr,
-		"polygon member"@en;
+	rdfs:label "polygone membre"@fr, "polygon member"@en;
 	rdfs:range geom:Polygon.
 
 geom:geometry a owl:ObjectProperty;
 	rdfs:comment "Primitive géométrique associée à un objet pour représenter sa localisation et éventuellement sa forme."@fr;
-	rdfs:label "a pour géométrie"@fr,
-		"has geometry"@en;
+	rdfs:label "a pour géométrie"@fr, "has geometry"@en;
 	rdfs:range geom:Geometry.
 
 geom:centroid a owl:ObjectProperty;
@@ -391,8 +344,7 @@ rdf:rest a owl:ObjectProperty;
 	rdfs:label "rest"@fr;
 	rdfs:range rdf:List.
 	
-# ----Les dataproperties commencent ici ------
-
+# ---- Datatype Properties definition ----
 
 geom:coordX a owl:DatatypeProperty;
 	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. La propriété coordX désigne la coordonnée définie par rapport au premier axe du système de coordonnées."@fr;
@@ -422,12 +374,9 @@ geom:coordM a owl:DatatypeProperty;
 	rdfs:label "m"@en;
 	rdfs:range xsd:double.
 
-
-# ----Les instances commencent ici ------
+# ---- Instances definition ----
 
 rdf:nil a rdf:List.
-
-
 
 
 
