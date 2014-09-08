@@ -35,19 +35,21 @@
 @prefix src:<http://data.ign.fr/id/codes/topo/typedesource/>.
 
 # ----------------------- Métadonnées ----------------------------------------------------
+
 <http://data.ign.fr/def/topo#> a owl:Ontology, voaf:Vocabulary ;
 	vann:preferredNamespacePrefix "topo" ;
 	vann:preferredNamespaceUri <http://data.ign.fr/def/topo#> ;
 	dcterms:title "Ontologie des éléments du territoire et de ses infrastructures de l'IGN"@fr ;
 	dcterms:description "Ontologie décrivant les éléments du territoire et ses infrastructures. Elle repend l'essentiel du vocabulaire de la BDTOPO(IGN) et vise à couvrir l'ensemble des entités topographiques et administratives du territoire national. Les thèmes couverts sont: le réseau routier, le réseau ferroviaire, le réseau de transport d'énergie, le réseau hydrographique, les bâtiments, la végétation arborée, l'orographie, les communes, les points d'activité ou d'intérêt."@fr ;
 	dcterms:issued "2014-04-16"^^xsd:date ;
-    dcterms:modified "2014-04-16"^^xsd:date ;
 	owl:versionInfo "Version 1.0 - 2014-04-16" ;
-	dc:rights "Copyright © 2014 IGN" ; 
+	dcterms:rights "Copyright 2014, IGN" ; 
 	cc:license <http://www.data.gouv.fr/Licence-Ouverte-Open-Licence> ;
+	cc:license <http://creativecommons.org/licenses/by/2.0/> ;
+	cc:license <http://opendatacommons.org/licenses/by/> ;
 	dcterms:creator <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Nathalie&nom=Abadie> ;	
 	dcterms:contributor <http://www.eurecom.fr/~atemezin/> ;
-    dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re>.
+    	dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re>.
    
 	   
 # ------ Déclaration des personnes -------------------------------------------------------
