@@ -89,13 +89,13 @@ geom:Curve a owl:Class;
 	rdfs:subClassOf sf:Curve.
 
 geom:Surface a owl:Class;
-	rdfs:comment " Primitive géométrique représentant localement une image continue d'une région d'un plan. Elle n'est pas instanciable. Le contour d'une surface est un ensemble de courbes fermées correspondant à ses frontières."@fr;
+	rdfs:comment "Primitive géométrique représentant localement une image continue d'une région d'un plan. Elle n'est pas instanciable. Le contour d'une surface est un ensemble de courbes fermées correspondant à ses frontières."@fr;
 	rdfs:label "Surface"@en, "Surface"@fr;
 	rdfs:subClassOf geom:Geometry;
 	rdfs:subClassOf sf:Surface.
 
 geom:Envelope a owl:Class;
-	rdfs:comment " Primitive géométrique représentant l'enveloppe minimale d'une géométrie. Une enveloppe est représentée par deux points: son coin de coordonnées maximales et son coin de coordonnées minimales."@fr;
+	rdfs:comment "Primitive géométrique représentant l'enveloppe minimale d'une géométrie. Une enveloppe est représentée par deux points: son coin de coordonnées maximales et son coin de coordonnées minimales."@fr;
 	rdfs:label "Envelope"@en, "Enveloppe"@fr;
 	owl:equivalentClass  [ a  owl:Class ;
 		owl:intersectionOf (
@@ -239,6 +239,7 @@ geom:MultiSurface a owl:Class;
 	rdfs:subClassOf sf:MultiSurface.
 
 geom:PointsList a owl:Class;
+	rdfs:comment "Liste de points."@fr;
 	rdfs:label "List of points"@en, "Liste de points"@fr;
 	rdfs:subClassOf rdf:List;
 	rdfs:subClassOf [ a owl:Restriction;
@@ -255,13 +256,13 @@ geom:firstAndLast a owl:ObjectProperty;
 	rdfs:range geom:Point.
 
 geom:points a owl:ObjectProperty;
-	rdfs:comment "La liste ordonnée des points consitutant une géométrie de type curve."@fr;
+	rdfs:comment "La liste ordonnée des points consitutant une géométrie de type Curve."@fr;
 	rdfs:domain geom:Curve;
 	rdfs:label "points"@en, "points"@fr;
 	rdfs:range geom:PointsList.
 
 geom:crs a owl:ObjectProperty;
-	rdfs:comment "Système de coordonnées associé à  une primitive géométrique."@fr;
+	rdfs:comment "Système de coordonnées associé à une primitive géométrique."@fr;
 	rdfs:domain geom:Geometry;
 	rdfs:label "coordinate reference system"@en, "système de coordonnées"@fr;
 	rdfs:range ignf:CRS.
@@ -287,19 +288,19 @@ geom:exterior a owl:ObjectProperty;
 	rdfs:subPropertyOf geom:boundary.
 
 geom:pointMember a owl:ObjectProperty;
-	rdfs:comment "Relie une géométrie de type multipoint aux points qui la composent."@fr;
+	rdfs:comment "Relie une géométrie de type MultiPoint aux points qui la composent."@fr;
 	rdfs:domain geom:MultiPoint;
 	rdfs:label "point membre"@fr, "point member"@en;
 	rdfs:range geom:Point.
 
 geom:lineStringMember a owl:ObjectProperty;
-	rdfs:comment "Relie une géométrie de type multilinestring aux linestrings qui la composent."@fr;
+	rdfs:comment "Relie une géométrie de type MultiLineString aux linestrings qui la composent."@fr;
 	rdfs:domain geom:MultiLineString;
 	rdfs:label "polyligne membre"@fr, "line string member"@en;
 	rdfs:range geom:LineString.
 
 geom:polygonMember a owl:ObjectProperty;
-	rdfs:comment "Relie une géométrie de type multipolygones aux polygones qui la composent."@fr;
+	rdfs:comment "Relie une géométrie de type MultiPolygon aux polygones qui la composent."@fr;
 	rdfs:domain geom:MultiPolygon;
 	rdfs:label "polygone membre"@fr, "polygon member"@en;
 	rdfs:range geom:Polygon.
@@ -336,13 +337,6 @@ geom:lowerCorner a owl:ObjectProperty;
 	rdfs:label "lower corner"@en;
 	rdfs:label "coin inférieur"@fr;
 	rdfs:range geom:Point.
-
-rdf:rest a owl:ObjectProperty;
-	rdfs:comment "La suite d'une liste."@fr;
-	rdfs:domain rdf:List;
-	rdfs:label "rest"@en;
-	rdfs:label "rest"@fr;
-	rdfs:range rdf:List.
 	
 # ---- Datatype Properties definition ----
 
@@ -375,9 +369,4 @@ geom:coordM a owl:DatatypeProperty;
 	rdfs:range xsd:double.
 
 # ---- Instances definition ----
-
-rdf:nil a rdf:List.
-
-
-
 
