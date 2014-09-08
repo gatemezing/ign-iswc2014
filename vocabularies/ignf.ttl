@@ -20,20 +20,24 @@
 ######----Les métadonnées ici ----####
 ######################################
 
+
 <http://data.ign.fr/def/ignf> a owl:Ontology;
 	dcterms:description "Codes pour la description de systèmes de référence de coordonnées conforme ISO TC/211. Les traductions françaises des termes et leurs définitions sont pour la plupart issues du glossaire multilingue ISO/TC 211 disponible ici: http://www.isotc211.org/Terminology.htm"@fr;
 	dcterms:title "Ontologie des systèmes de coordonnées"@fr;
-	cc:license <http://creativecommons.org/licenses/by/3.0/> ;
-    dcterms:creator <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Nathalie&nom=Abadie> ;	
-    dcterms:creator <http://www.eurecom.fr/~atemezin/> ;
-    dcterms:contributor <http://www.eurecom.fr/~troncy/> ;
-	dcterms:issued "2014-04-09"^^xsd:date ;
-    dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re> ;
-    vann:preferredNamespacePrefix "ignf" ;
-    vann:preferredNamespaceUri <http://data.ign.fr/def/ignf#> ;
-    cc:license <http://www.data.gouv.fr/Licence-Ouverte-Open-Licence> ;
-    rdfs:seeAlso <http://librairies.ignf.fr/geoportail/resources/IGNF.xml> ;
-    owl:versionInfo "1.1 - 2014-04-09" .
+    	dcterms:creator <http://recherche.ign.fr/labos/cogit/cv.php?prenom=Nathalie&nom=Abadie> ;	
+   	dcterms:creator <http://www.eurecom.fr/~atemezin/> ;
+ 	dcterms:contributor <http://www.eurecom.fr/~troncy/> ;
+	dcterms:issued "2013-06-11"^^xsd:date ;
+	dcterms:modified "2014-04-09"^^xsd:date ;
+  	dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re> ;
+	dcterms:rights "Copyright 2014, IGN" ;
+   	 vann:preferredNamespacePrefix "ignf" ;
+   	 vann:preferredNamespaceUri <http://data.ign.fr/def/ignf#> ;
+   	 cc:license <http://www.data.gouv.fr/Licence-Ouverte-Open-Licence> ;
+	 cc:license <http://creativecommons.org/licenses/by/2.0/> ;
+	 cc:license <http://opendatacommons.org/licenses/by/> ;
+  	 rdfs:seeAlso <http://librairies.ignf.fr/geoportail/resources/IGNF.xml> ;
+  	 owl:versionInfo "Version 1.0 - 2014-04-09" .
 
 
 #############################################
