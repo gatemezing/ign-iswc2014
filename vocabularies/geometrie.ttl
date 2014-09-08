@@ -11,7 +11,6 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix gsp: <http://www.opengis.net/ont/geosparql#>.
-@prefix dc: <http://purl.org/dc/elements/1.1/>.
 @prefix ngeo: <http://geovocab.org/geometry#>.
 @prefix ignf: <http://data.ign.fr/def/ignf#>.
 
@@ -30,6 +29,7 @@
 	dcterms:issued "2013-06-11"^^xsd:date ;
 	dcterms:modified "2014-08-22"^^xsd:date ;
     dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re> ;
+	dcterms:rights "Copyright 2014, IGN" ;
     vann:preferredNamespacePrefix "geom" ;
     vann:preferredNamespaceUri <http://data.ign.fr/def/geometrie#> ;
     owl:versionInfo "Version 1.0 - 2014-08-22" .
