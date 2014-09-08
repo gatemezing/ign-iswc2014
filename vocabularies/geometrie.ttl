@@ -29,6 +29,7 @@
 	dcterms:issued "2013-06-11"^^xsd:date ;
     dcterms:modified "2013-10-01"^^xsd:date ;
 	dcterms:modified "2014-02-28"^^xsd:date ;
+	dcterms:modified "2014-08-22"^^xsd:date ;
     dcterms:publisher <http://fr.dbpedia.org/resource/Institut_national_de_l%27information_g%C3%A9ographique_et_foresti%C3%A8re> ;
     vann:preferredNamespacePrefix "geom" ;
     vann:preferredNamespaceUri <http://data.ign.fr/def/geometrie#> ;
@@ -48,7 +49,7 @@
 # ----Les classes commencent ici ------
 
 geom:Geometry a owl:Class;
-	rdfs:comment "Primitive géométrique non instanciable, racine de l'ontologie des primitives géométriques. Une géométrie est associée à un système de coordonnées et un seul."@fr;
+	rdfs:comment "Primitive géométrique non instanciable, racine de l'ontologie des primitives géométriques. Une géométrie est associée à  un système de coordonnées et un seul."@fr;
 	rdfs:label "Géométrie"@fr, "Geometry"@en;
 	owl:equivalentClass [ a owl:Restriction;
 				owl:onClass ignf:CoordinatesSystem;
@@ -100,7 +101,7 @@ geom:Curve a owl:Class;
 
 
 geom:Surface a owl:Class;
-	rdfs:comment " Primitive géométrique représentant localement une image continue d'une région d'un plan. Elle n'est pas instanciable. Le contour d'une surface est un ensemble de courbes fermées correspondant à ses frontières."@fr;
+	rdfs:comment " Primitive géométrique représentant localement une image continue d'une région d'un plan. Elle n'est pas instanciable. Le contour d'une surface est un ensemble de courbes fermées correspondant à  ses frontières."@fr;
 	rdfs:label "Surface"@en,
 		"Surface"@fr;
 	rdfs:subClassOf geom:Geometry;
@@ -208,7 +209,7 @@ geom:Line a owl:Class;
 												geom:PointsList
 										
 												[ a owl:Restriction;
-												owl:onProperty geom:rest;
+												owl:onProperty rdf:rest;
 												owl:hasValue rdf:nil; ])];
 											
 												owl:onProperty rdf:rest; ]
@@ -284,7 +285,7 @@ geom:PointsList a owl:Class;
 # ----Les propriétés commencent ici ------
 
 geom:firstAndLast a owl:ObjectProperty;
-	rdfs:comment "Désigne le point servant de point initial et de point final à une liste circulaire de points."@fr;
+	rdfs:comment "Désigne le point servant de point initial et de point final à  une liste circulaire de points."@fr;
 	rdfs:domain geom:PointsList;
 	rdfs:label "first and last"@en,
 		"premier et dernier"@fr;
@@ -299,7 +300,7 @@ geom:points a owl:ObjectProperty;
 	rdfs:range geom:PointsList.
 
 geom:crs a owl:ObjectProperty;
-	rdfs:comment "Système de coordonnées associé à une primitive géométrique."@fr;
+	rdfs:comment "Système de coordonnées associé à  une primitive géométrique."@fr;
 	rdfs:domain geom:Geometry;
 	rdfs:label "coordinate reference system"@en,
 		"système de coordonnées"@fr;
@@ -394,21 +395,21 @@ rdf:rest a owl:ObjectProperty;
 
 
 geom:coordX a owl:DatatypeProperty;
-	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. Dans un système de coordonnées géographique, X représente la longitude du point. Dans un système de coordonnées en projection, X représente la valeur de false easting du point."@fr;
+	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. La propriété coordX désigne la coordonnée définie par rapport au premier axe du système de coordonnées."@fr;
 	rdfs:domain geom:Point;
 	rdfs:label "x"@fr;
 	rdfs:label "x"@en;
 	rdfs:range xsd:double.
 
 geom:coordY a owl:DatatypeProperty;
-	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. Dans un système de coordonnées géographique, Y représente la latitude du point. Dans un système de coordonnées en projection, Y représente la valeur de false northing du point."@fr;
+	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. La propriété coordY désigne la coordonnée définie par rapport au deuxième axe du système de coordonnées."@fr;
 	rdfs:domain geom:Point;
 	rdfs:label "y"@fr;
 	rdfs:label "y"@en;
 	rdfs:range xsd:double.
 
 geom:coordZ a owl:DatatypeProperty;
-	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. La coordonnées Z d'un point représente typiquement, mais pas nécessairement, l'altitude ou la hauteur au dessus de l'ellipsoïde de ce point."@fr;
+	rdfs:comment "L'interprétation des coordonnées d'un point dépend du système de coordonnées de référence associé à ce point. La propriété coordZ désigne la coordonnée définie par rapport au troisième axe du système de coordonnées. La coordonnées Z d'un point représente typiquement, mais pas nécessairement, l'altitude ou la hauteur de ce point."@fr;
 	rdfs:domain geom:Point;
 	rdfs:label "z"@fr;
 	rdfs:label "z"@en;
@@ -425,7 +426,6 @@ geom:coordM a owl:DatatypeProperty;
 # ----Les instances commencent ici ------
 
 rdf:nil a rdf:List.
-
 
 
 
