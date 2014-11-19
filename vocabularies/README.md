@@ -2,7 +2,7 @@ List of the vocabularies
 ======================
 This folder contains 4 vocabularies implemented, and one file instances for better converting administrative units dataset.
 
-  1- **geofla.ttl** contains the vocabulary for Frnech Administrative units. Deployed version at http://data.ign.fr/def/geofla
+  1- **geofla.ttl** contains the vocabulary for French Administrative units. Deployed version at http://data.ign.fr/def/geofla
   
   2- **geometrie.ttl** is the vocabulary for generic geometries. Deployed version at http://data.ign.fr/def/geometrie
   
